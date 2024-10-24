@@ -1,7 +1,10 @@
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
+import retry
 import time
+import urllib
+from bs4 import BeautifulSoup
+from urllib.request import Request, urlopen
 
 def gather_info(album_link):
     '''
@@ -105,3 +108,7 @@ def get_album(title):
             my_str +=character
     album = my_str[:-14] #return just the title
     return album
+
+@retry.retry(urllib.error.URLError, tries=4, delay=3, backoff=2)
+def urlopen_with_retry(url):
+    return urllib.request.urlopen(url)
