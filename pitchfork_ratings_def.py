@@ -4,7 +4,7 @@ import retry
 import time
 import urllib
 from bs4 import BeautifulSoup
-from urllib.request import Request, urlopen
+from urllib.request import urlopen
 
 def gather_info(album_link):
     '''
